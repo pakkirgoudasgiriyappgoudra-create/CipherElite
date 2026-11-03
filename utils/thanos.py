@@ -12,8 +12,12 @@ SALT2 = "".join(_s2)
 if len(SALT1) != 10 or len(SALT2) != 15:
     raise RuntimeError("don't try to kang 🤫")
 
-def _positions(length: int, count: int, seed: str) -> List[int]:
-    
+def _positions(length, count, seed):
+    if length < 0:
+        raise ValueError(
+            "STRING_SESSION is too short for Thanos protection"
+        )
+
     rng = random.Random(seed)
     return sorted(rng.sample(range(length + count), count))
 
